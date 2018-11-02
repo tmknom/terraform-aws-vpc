@@ -14,3 +14,9 @@ variable "enable_dns_support" {
   type        = "string"
   description = "A boolean flag to enable/disable DNS support in the VPC."
 }
+
+variable "enable_dns_hostnames" {
+  default     = true
+  type        = "string"
+  description = "A boolean flag to enable/disable DNS hostnames in the VPC."
+}
