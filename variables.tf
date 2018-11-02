@@ -8,3 +8,9 @@ variable "instance_tenancy" {
   type        = "string"
   description = "A tenancy option for instances launched into the VPC."
 }
+
+variable "enable_dns_support" {
+  default     = true
+  type        = "string"
+  description = "A boolean flag to enable/disable DNS support in the VPC."
+}
