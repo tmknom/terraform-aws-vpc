@@ -8,3 +8,10 @@ resource "aws_vpc" "default" {
 
   tags = "${merge(map("Name", var.name), var.tags)}"
 }
+
+# https://www.terraform.io/docs/providers/aws/r/internet_gateway.html
+resource "aws_internet_gateway" "default" {
+  vpc_id = "${aws_vpc.default.id}"
+
+  tags = "${merge(map("Name", var.name), var.tags)}"
+}

@@ -47,3 +47,8 @@ output "vpc_default_route_table_id" {
   value       = "${aws_vpc.default.default_route_table_id}"
   description = "The ID of the route table created by default on VPC creation."
 }
+
+output "internet_gateway_id" {
+  value       = "${aws_internet_gateway.default.id}"
+  description = "The ID of the Internet Gateway."
+}
