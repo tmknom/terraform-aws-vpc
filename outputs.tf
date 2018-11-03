@@ -78,6 +78,11 @@ output "public_route_table_id" {
   description = "The ID of the public routing table."
 }
 
+output "public_route_table_associations" {
+  value       = ["${aws_route_table_association.public.*.id}"]
+  description = "The IDs of the public associations."
+}
+
 output "private_subnet_ids" {
   value       = ["${aws_subnet.private.*.id}"]
   description = "The IDs of the private subnets."
