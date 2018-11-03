@@ -83,6 +83,21 @@ output "public_route_table_associations" {
   description = "The IDs of the public associations."
 }
 
+output "public_network_acl_id" {
+  value       = "${aws_network_acl.public.id}"
+  description = "The ID of the public network ACL."
+}
+
+output "public_ingress_network_acl_rule_id" {
+  value       = "${aws_network_acl_rule.public_ingress.id}"
+  description = "The ID of the public ingress network ACL Rule."
+}
+
+output "public_egress_network_acl_rule_id" {
+  value       = "${aws_network_acl_rule.public_egress.id}"
+  description = "The ID of the public egress network ACL Rule."
+}
+
 output "private_subnet_ids" {
   value       = ["${aws_subnet.private.*.id}"]
   description = "The IDs of the private subnets."
@@ -111,4 +126,19 @@ output "private_route_table_id" {
 output "private_route_table_associations" {
   value       = ["${aws_route_table_association.private.*.id}"]
   description = "The IDs of the private associations."
+}
+
+output "private_network_acl_id" {
+  value       = "${aws_network_acl.private.id}"
+  description = "The ID of the private network ACL."
+}
+
+output "private_ingress_network_acl_rule_id" {
+  value       = "${aws_network_acl_rule.private_ingress.id}"
+  description = "The ID of the private ingress network ACL Rule."
+}
+
+output "private_egress_network_acl_rule_id" {
+  value       = "${aws_network_acl_rule.private_egress.id}"
+  description = "The ID of the private egress network ACL Rule."
 }
