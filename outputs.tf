@@ -72,3 +72,23 @@ output "public_subnet_availability_zones" {
   value       = ["${aws_subnet.public.*.availability_zone}"]
   description = "The Availability Zones for the public subnets."
 }
+
+output "private_subnet_ids" {
+  value       = ["${aws_subnet.private.*.id}"]
+  description = "The IDs of the private subnets."
+}
+
+output "private_subnet_arns" {
+  value       = ["${aws_subnet.private.*.arn}"]
+  description = "The ARNs of the private subnets."
+}
+
+output "private_subnet_cidr_blocks" {
+  value       = ["${aws_subnet.private.*.cidr_block}"]
+  description = "The CIDR blocks for the private subnets."
+}
+
+output "private_subnet_availability_zones" {
+  value       = ["${aws_subnet.private.*.availability_zone}"]
+  description = "The Availability Zones for the private subnets."
+}

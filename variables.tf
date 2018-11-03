@@ -44,6 +44,18 @@ variable "map_public_ip_on_launch" {
   description = "Specify true to indicate that instances launched into the subnet should be assigned a public IP address."
 }
 
+variable "private_subnet_cidr_blocks" {
+  default     = []
+  type        = "list"
+  description = "The CIDR blocks for the private subnets."
+}
+
+variable "private_availability_zones" {
+  default     = []
+  type        = "list"
+  description = "The Availability Zones for the private subnets."
+}
+
 variable "tags" {
   default     = {}
   type        = "map"
