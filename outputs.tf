@@ -107,3 +107,8 @@ output "private_route_table_id" {
   value       = "${aws_route_table.private.id}"
   description = "The ID of the private routing table."
 }
+
+output "private_route_table_associations" {
+  value       = ["${aws_route_table_association.private.*.id}"]
+  description = "The IDs of the private associations."
+}

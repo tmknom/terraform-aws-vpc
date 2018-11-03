@@ -68,3 +68,11 @@ resource "aws_route_table" "private" {
 
   tags = "${merge(map("Name", format("%s-private", var.name)), var.tags)}"
 }
+
+# https://www.terraform.io/docs/providers/aws/r/route_table_association.html
+resource "aws_route_table_association" "private" {
+  count = "${length(var.private_subnet_cidr_blocks)}"
+
+  subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
+  route_table_id = "${aws_route_table.private.id}"
+}
