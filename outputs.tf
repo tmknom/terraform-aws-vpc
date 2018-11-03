@@ -73,6 +73,16 @@ output "public_subnet_availability_zones" {
   description = "The Availability Zones for the public subnets."
 }
 
+output "public_route_table_id" {
+  value       = "${aws_route_table.public.id}"
+  description = "The ID of the public routing table."
+}
+
+output "public_route_table_associations" {
+  value       = ["${aws_route_table_association.public.*.id}"]
+  description = "The IDs of the public associations."
+}
+
 output "private_subnet_ids" {
   value       = ["${aws_subnet.private.*.id}"]
   description = "The IDs of the private subnets."
@@ -91,4 +101,14 @@ output "private_subnet_cidr_blocks" {
 output "private_subnet_availability_zones" {
   value       = ["${aws_subnet.private.*.availability_zone}"]
   description = "The Availability Zones for the private subnets."
+}
+
+output "private_route_table_id" {
+  value       = "${aws_route_table.private.id}"
+  description = "The ID of the private routing table."
+}
+
+output "private_route_table_associations" {
+  value       = ["${aws_route_table_association.private.*.id}"]
+  description = "The IDs of the private associations."
 }

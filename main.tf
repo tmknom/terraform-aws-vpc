@@ -28,6 +28,28 @@ resource "aws_subnet" "public" {
   tags = "${merge(map("Name", format("%s-public-%d", var.name, count.index)), var.tags)}"
 }
 
+# https://www.terraform.io/docs/providers/aws/r/route_table.html
+resource "aws_route_table" "public" {
+  vpc_id = "${aws_vpc.default.id}"
+
+  tags = "${merge(map("Name", format("%s-public", var.name)), var.tags)}"
+}
+
+# https://www.terraform.io/docs/providers/aws/r/route.html
+resource "aws_route" "public" {
+  route_table_id         = "${aws_route_table.public.id}"
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = "${aws_internet_gateway.default.id}"
+}
+
+# https://www.terraform.io/docs/providers/aws/r/route_table_association.html
+resource "aws_route_table_association" "public" {
+  count = "${length(var.public_subnet_cidr_blocks)}"
+
+  subnet_id      = "${element(aws_subnet.public.*.id, count.index)}"
+  route_table_id = "${aws_route_table.public.id}"
+}
+
 # https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "private" {
   count = "${length(var.private_subnet_cidr_blocks)}"
@@ -38,4 +60,19 @@ resource "aws_subnet" "private" {
   map_public_ip_on_launch = false
 
   tags = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
+}
+
+# https://www.terraform.io/docs/providers/aws/r/route_table.html
+resource "aws_route_table" "private" {
+  vpc_id = "${aws_vpc.default.id}"
+
+  tags = "${merge(map("Name", format("%s-private", var.name)), var.tags)}"
+}
+
+# https://www.terraform.io/docs/providers/aws/r/route_table_association.html
+resource "aws_route_table_association" "private" {
+  count = "${length(var.private_subnet_cidr_blocks)}"
+
+  subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
+  route_table_id = "${aws_route_table.private.id}"
 }
