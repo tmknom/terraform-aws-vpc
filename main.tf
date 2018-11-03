@@ -115,3 +115,11 @@ resource "aws_route_table_association" "private" {
   subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
   route_table_id = "${aws_route_table.private.id}"
 }
+
+# https://www.terraform.io/docs/providers/aws/r/network_acl.html
+resource "aws_network_acl" "private" {
+  vpc_id     = "${aws_vpc.default.id}"
+  subnet_ids = ["${aws_subnet.private.*.id}"]
+
+  tags = "${merge(map("Name", format("%s-private", var.name)), var.tags)}"
+}
