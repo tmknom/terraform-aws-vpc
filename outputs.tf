@@ -132,3 +132,13 @@ output "private_network_acl_id" {
   value       = "${aws_network_acl.private.id}"
   description = "The ID of the private network ACL."
 }
+
+output "private_ingress_network_acl_rule_id" {
+  value       = "${aws_network_acl_rule.private_ingress.id}"
+  description = "The ID of the private ingress network ACL Rule."
+}
+
+output "private_egress_network_acl_rule_id" {
+  value       = "${aws_network_acl_rule.private_egress.id}"
+  description = "The ID of the private egress network ACL Rule."
+}

@@ -123,3 +123,26 @@ resource "aws_network_acl" "private" {
 
   tags = "${merge(map("Name", format("%s-private", var.name)), var.tags)}"
 }
+
+# https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
+resource "aws_network_acl_rule" "private_ingress" {
+  network_acl_id = "${aws_network_acl.private.id}"
+  egress         = false
+  from_port      = 0
+  to_port        = 0
+  rule_number    = 100
+  rule_action    = "allow"
+  protocol       = "-1"
+  cidr_block     = "0.0.0.0/0"
+}
+
+resource "aws_network_acl_rule" "private_egress" {
+  network_acl_id = "${aws_network_acl.private.id}"
+  egress         = true
+  from_port      = 0
+  to_port        = 0
+  rule_number    = 100
+  rule_action    = "allow"
+  protocol       = "-1"
+  cidr_block     = "0.0.0.0/0"
+}
