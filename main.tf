@@ -16,6 +16,10 @@ resource "aws_internet_gateway" "default" {
   tags = "${merge(map("Name", var.name), var.tags)}"
 }
 
+#
+# Public network
+#
+
 # https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "public" {
   count = "${length(var.public_subnet_cidr_blocks)}"
@@ -49,6 +53,10 @@ resource "aws_route_table_association" "public" {
   subnet_id      = "${element(aws_subnet.public.*.id, count.index)}"
   route_table_id = "${aws_route_table.public.id}"
 }
+
+#
+# Private network
+#
 
 # https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "private" {
