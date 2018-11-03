@@ -61,3 +61,10 @@ resource "aws_subnet" "private" {
 
   tags = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
 }
+
+# https://www.terraform.io/docs/providers/aws/r/route_table.html
+resource "aws_route_table" "private" {
+  vpc_id = "${aws_vpc.default.id}"
+
+  tags = "${merge(map("Name", format("%s-private", var.name)), var.tags)}"
+}
