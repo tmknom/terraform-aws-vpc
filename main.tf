@@ -35,6 +35,13 @@ resource "aws_route_table" "public" {
   tags = "${merge(map("Name", format("%s-public", var.name)), var.tags)}"
 }
 
+# https://www.terraform.io/docs/providers/aws/r/route.html
+resource "aws_route" "public" {
+  route_table_id         = "${aws_route_table.public.id}"
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = "${aws_internet_gateway.default.id}"
+}
+
 # https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "private" {
   count = "${length(var.private_subnet_cidr_blocks)}"
