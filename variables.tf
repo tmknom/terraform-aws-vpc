@@ -26,6 +26,24 @@ variable "enable_dns_hostnames" {
   description = "A boolean flag to enable/disable DNS hostnames in the VPC."
 }
 
+variable "public_subnet_cidr_blocks" {
+  default     = []
+  type        = "list"
+  description = "The CIDR blocks for the public subnets."
+}
+
+variable "public_availability_zones" {
+  default     = []
+  type        = "list"
+  description = "The Availability Zones for the public subnets."
+}
+
+variable "map_public_ip_on_launch" {
+  default     = true
+  type        = "string"
+  description = "Specify true to indicate that instances launched into the subnet should be assigned a public IP address."
+}
+
 variable "tags" {
   default     = {}
   type        = "map"
