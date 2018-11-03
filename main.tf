@@ -54,6 +54,14 @@ resource "aws_route_table_association" "public" {
   route_table_id = "${aws_route_table.public.id}"
 }
 
+# https://www.terraform.io/docs/providers/aws/r/network_acl.html
+resource "aws_network_acl" "public" {
+  vpc_id     = "${aws_vpc.default.id}"
+  subnet_ids = ["${aws_subnet.public.*.id}"]
+
+  tags = "${merge(map("Name", format("%s-public", var.name)), var.tags)}"
+}
+
 #
 # Private network
 #
