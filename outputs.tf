@@ -88,6 +88,16 @@ output "public_network_acl_id" {
   description = "The ID of the public network ACL."
 }
 
+output "public_ingress_network_acl_rule_id" {
+  value       = "${aws_network_acl_rule.public_ingress.id}"
+  description = "The ID of the public ingress network ACL Rule."
+}
+
+output "public_egress_network_acl_rule_id" {
+  value       = "${aws_network_acl_rule.public_egress.id}"
+  description = "The ID of the public egress network ACL Rule."
+}
+
 output "private_subnet_ids" {
   value       = ["${aws_subnet.private.*.id}"]
   description = "The IDs of the private subnets."

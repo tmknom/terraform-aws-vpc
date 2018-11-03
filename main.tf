@@ -62,6 +62,29 @@ resource "aws_network_acl" "public" {
   tags = "${merge(map("Name", format("%s-public", var.name)), var.tags)}"
 }
 
+# https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
+resource "aws_network_acl_rule" "public_ingress" {
+  network_acl_id = "${aws_network_acl.public.id}"
+  egress         = false
+  from_port      = 0
+  to_port        = 0
+  rule_number    = 100
+  rule_action    = "allow"
+  protocol       = "-1"
+  cidr_block     = "0.0.0.0/0"
+}
+
+resource "aws_network_acl_rule" "public_egress" {
+  network_acl_id = "${aws_network_acl.public.id}"
+  egress         = true
+  from_port      = 0
+  to_port        = 0
+  rule_number    = 100
+  rule_action    = "allow"
+  protocol       = "-1"
+  cidr_block     = "0.0.0.0/0"
+}
+
 #
 # Private network
 #
