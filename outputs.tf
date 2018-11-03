@@ -73,6 +73,11 @@ output "public_subnet_availability_zones" {
   description = "The Availability Zones for the public subnets."
 }
 
+output "public_route_table_id" {
+  value       = "${aws_route_table.public.id}"
+  description = "The ID of the public routing table."
+}
+
 output "private_subnet_ids" {
   value       = ["${aws_subnet.private.*.id}"]
   description = "The IDs of the private subnets."

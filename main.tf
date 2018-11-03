@@ -28,6 +28,13 @@ resource "aws_subnet" "public" {
   tags = "${merge(map("Name", format("%s-public-%d", var.name, count.index)), var.tags)}"
 }
 
+# https://www.terraform.io/docs/providers/aws/r/route_table.html
+resource "aws_route_table" "public" {
+  vpc_id = "${aws_vpc.default.id}"
+
+  tags = "${merge(map("Name", format("%s-public", var.name)), var.tags)}"
+}
+
 # https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "private" {
   count = "${length(var.private_subnet_cidr_blocks)}"
