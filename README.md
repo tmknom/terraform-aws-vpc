@@ -21,11 +21,43 @@ This module provides recommended settings.
 
 ## Usage
 
-Named `terraform-<PROVIDER>-<NAME>`. Module repositories must use this three-part name format.
+### Minimal
 
-```sh
-curl -fsSL https://raw.githubusercontent.com/tmknom/terraform-aws-vpc/master/install | sh -s terraform-aws-sample
-cd terraform-aws-sample && make install
+```hcl
+module "vpc" {
+  source     = "git::https://github.com/tmknom/terraform-aws-vpc.git?ref=tags/1.0.0"
+  cidr_block = "10.255.0.0/16"
+  name       = "minimal"
+
+  public_subnet_cidr_blocks  = ["10.255.0.0/24", "10.255.1.0/24"]
+  public_availability_zones  = ["ap-northeast-1a", "ap-northeast-1c"]
+  private_subnet_cidr_blocks = ["10.255.64.0/24", "10.255.65.0/24"]
+  private_availability_zones = ["ap-northeast-1a", "ap-northeast-1c"]
+}
+```
+
+### Complete
+
+```hcl
+module "vpc" {
+  source     = "git::https://github.com/tmknom/terraform-aws-vpc.git?ref=tags/1.0.0"
+  cidr_block = "192.168.0.0/16"
+  name       = "complete"
+
+  public_subnet_cidr_blocks  = ["192.168.0.0/24", "192.168.1.0/24"]
+  public_availability_zones  = ["ap-northeast-1a", "ap-northeast-1c"]
+  private_subnet_cidr_blocks = ["192.168.64.0/24", "192.168.65.0/24"]
+  private_availability_zones = ["ap-northeast-1a", "ap-northeast-1c"]
+
+  instance_tenancy        = "default"
+  enable_dns_support      = false
+  enable_dns_hostnames    = false
+  map_public_ip_on_launch = false
+
+  tags = {
+    Environment = "prod"
+  }
+}
 ```
 
 ## Examples
