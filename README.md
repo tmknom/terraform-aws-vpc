@@ -35,11 +35,53 @@ cd terraform-aws-sample && make install
 
 ## Inputs
 
-Write your Terraform module inputs.
+| Name                       | Description                                                                                              |  Type  |  Default  | Required |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- | :----: | :-------: | :------: |
+| cidr_block                 | The CIDR block for the VPC.                                                                              | string |     -     |   yes    |
+| enable_dns_hostnames       | A boolean flag to enable/disable DNS hostnames in the VPC.                                               | string |  `true`   |    no    |
+| enable_dns_support         | A boolean flag to enable/disable DNS support in the VPC.                                                 | string |  `true`   |    no    |
+| instance_tenancy           | A tenancy option for instances launched into the VPC.                                                    | string | `default` |    no    |
+| map_public_ip_on_launch    | Specify true to indicate that instances launched into the subnet should be assigned a public IP address. | string |  `true`   |    no    |
+| name                       | The name for the VPC.                                                                                    | string |     -     |   yes    |
+| private_availability_zones | The Availability Zones for the private subnets.                                                          |  list  | `<list>`  |    no    |
+| private_subnet_cidr_blocks | The CIDR blocks for the private subnets.                                                                 |  list  | `<list>`  |    no    |
+| public_availability_zones  | The Availability Zones for the public subnets.                                                           |  list  | `<list>`  |    no    |
+| public_subnet_cidr_blocks  | The CIDR blocks for the public subnets.                                                                  |  list  | `<list>`  |    no    |
+| tags                       | A mapping of tags to assign to all resources.                                                            |  map   |  `<map>`  |    no    |
 
 ## Outputs
 
-Write your Terraform module outputs.
+| Name                                | Description                                                      |
+| ----------------------------------- | ---------------------------------------------------------------- |
+| internet_gateway_id                 | The ID of the Internet Gateway.                                  |
+| private_egress_network_acl_rule_id  | The ID of the private egress network ACL Rule.                   |
+| private_ingress_network_acl_rule_id | The ID of the private ingress network ACL Rule.                  |
+| private_network_acl_id              | The ID of the private network ACL.                               |
+| private_route_table_associations    | The IDs of the private associations.                             |
+| private_route_table_id              | The ID of the private routing table.                             |
+| private_subnet_arns                 | The ARNs of the private subnets.                                 |
+| private_subnet_availability_zones   | The Availability Zones for the private subnets.                  |
+| private_subnet_cidr_blocks          | The CIDR blocks for the private subnets.                         |
+| private_subnet_ids                  | The IDs of the private subnets.                                  |
+| public_egress_network_acl_rule_id   | The ID of the public egress network ACL Rule.                    |
+| public_ingress_network_acl_rule_id  | The ID of the public ingress network ACL Rule.                   |
+| public_network_acl_id               | The ID of the public network ACL.                                |
+| public_route_table_associations     | The IDs of the public associations.                              |
+| public_route_table_id               | The ID of the public routing table.                              |
+| public_subnet_arns                  | The ARNs of the public subnets.                                  |
+| public_subnet_availability_zones    | The Availability Zones for the public subnets.                   |
+| public_subnet_cidr_blocks           | The CIDR blocks for the public subnets.                          |
+| public_subnet_ids                   | The IDs of the public subnets.                                   |
+| vpc_arn                             | Amazon Resource Name (ARN) of VPC.                               |
+| vpc_cidr_block                      | The CIDR block of the VPC.                                       |
+| vpc_default_network_acl_id          | The ID of the network ACL created by default on VPC creation.    |
+| vpc_default_route_table_id          | The ID of the route table created by default on VPC creation.    |
+| vpc_default_security_group_id       | The ID of the security group created by default on VPC creation. |
+| vpc_enable_dns_hostnames            | Whether or not the VPC has DNS hostname support.                 |
+| vpc_enable_dns_support              | Whether or not the VPC has DNS support.                          |
+| vpc_id                              | The ID of the VPC.                                               |
+| vpc_instance_tenancy                | Tenancy of instances spin up within VPC.                         |
+| vpc_main_route_table_id             | The ID of the main route table associated with this VPC.         |
 
 ## Development
 
