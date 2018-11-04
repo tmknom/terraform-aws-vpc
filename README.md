@@ -6,6 +6,19 @@
 
 Terraform module which creates VPC resources on AWS.
 
+## Description
+
+Provision [VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html),
+[Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html),
+[Route Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html),
+[Network ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html),
+[Internet Gateways](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html).
+This module provides recommended settings.
+
+- Create a Subnet for each tier
+- Create a Route Table for each tier
+- Unused Default Network ACL
+
 ## Usage
 
 Named `terraform-<PROVIDER>-<NAME>`. Module repositories must use this three-part name format.
