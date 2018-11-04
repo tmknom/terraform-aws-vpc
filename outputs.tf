@@ -78,7 +78,7 @@ output "public_route_table_id" {
   description = "The ID of the public routing table."
 }
 
-output "public_route_table_associations" {
+output "public_route_table_association_ids" {
   value       = ["${aws_route_table_association.public.*.id}"]
   description = "The IDs of the public associations."
 }
@@ -123,7 +123,7 @@ output "private_route_table_id" {
   description = "The ID of the private routing table."
 }
 
-output "private_route_table_associations" {
+output "private_route_table_association_ids" {
   value       = ["${aws_route_table_association.private.*.id}"]
   description = "The IDs of the private associations."
 }

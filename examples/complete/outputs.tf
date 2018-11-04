@@ -62,8 +62,8 @@ output "public_route_table_id" {
   value = "${module.vpc.public_route_table_id}"
 }
 
-output "public_route_table_associations" {
-  value = "${module.vpc.public_route_table_associations}"
+output "public_route_table_association_ids" {
+  value = "${module.vpc.public_route_table_association_ids}"
 }
 
 output "public_network_acl_id" {
@@ -98,8 +98,8 @@ output "private_route_table_id" {
   value = "${module.vpc.private_route_table_id}"
 }
 
-output "private_route_table_associations" {
-  value = "${module.vpc.private_route_table_associations}"
+output "private_route_table_association_ids" {
+  value = "${module.vpc.private_route_table_association_ids}"
 }
 
 output "private_network_acl_id" {
