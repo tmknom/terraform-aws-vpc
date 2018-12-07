@@ -28,7 +28,7 @@ This module provides recommended settings:
 
 ```hcl
 module "vpc" {
-  source     = "git::https://github.com/tmknom/terraform-aws-vpc.git?ref=tags/1.0.0"
+  source     = "git::https://github.com/tmknom/terraform-aws-vpc.git?ref=tags/1.1.0"
   cidr_block = "10.255.0.0/16"
   name       = "example"
 
@@ -43,7 +43,7 @@ module "vpc" {
 
 ```hcl
 module "vpc" {
-  source     = "git::https://github.com/tmknom/terraform-aws-vpc.git?ref=tags/1.0.0"
+  source     = "git::https://github.com/tmknom/terraform-aws-vpc.git?ref=tags/1.1.0"
   cidr_block = "10.255.0.0/16"
   name       = "example"
 
