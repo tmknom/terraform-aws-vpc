@@ -90,7 +90,7 @@ module "vpc" {
 | private_ingress_network_acl_rule_id | The ID of the private ingress network ACL Rule.                  |
 | private_network_acl_id              | The ID of the private network ACL.                               |
 | private_route_table_association_ids | The IDs of the private associations.                             |
-| private_route_table_id              | The ID of the private routing table.                             |
+| private_route_table_ids             | The IDs of the private routing tables.                           |
 | private_subnet_arns                 | The ARNs of the private subnets.                                 |
 | private_subnet_availability_zones   | The Availability Zones for the private subnets.                  |
 | private_subnet_cidr_blocks          | The CIDR blocks for the private subnets.                         |
