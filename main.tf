@@ -129,7 +129,7 @@ resource "aws_nat_gateway" "default" {
 
 # https://www.terraform.io/docs/providers/aws/r/route_table.html
 resource "aws_route_table" "private" {
-  count = "${length(var.public_subnet_cidr_blocks)}"
+  count = "${length(var.private_subnet_cidr_blocks)}"
 
   vpc_id = "${aws_vpc.default.id}"
   tags   = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
