@@ -133,6 +133,36 @@ output "eip_nat_gateway_public_ips" {
   description = "Contains the public IP addresses."
 }
 
+output "nat_gateway_ids" {
+  value       = ["${aws_nat_gateway.default.*.id}"]
+  description = "The IDs of the NAT Gateways."
+}
+
+output "nat_gateway_allocation_ids" {
+  value       = ["${aws_nat_gateway.default.*.allocation_id}"]
+  description = "The Allocation IDs of the Elastic IP address for the gateways."
+}
+
+output "nat_gateway_subnet_ids" {
+  value       = ["${aws_nat_gateway.default.*.subnet_id}"]
+  description = "The Subnet IDs of the subnet in which the NAT gateways are placed."
+}
+
+output "nat_gateway_network_interface_ids" {
+  value       = ["${aws_nat_gateway.default.*.network_interface_id}"]
+  description = "The ENI IDs of the network interface created by the NAT gateways."
+}
+
+output "nat_gateway_private_ips" {
+  value       = ["${aws_nat_gateway.default.*.private_ip}"]
+  description = "The private IP addresses of the NAT Gateways."
+}
+
+output "nat_gateway_public_ips" {
+  value       = ["${aws_nat_gateway.default.*.public_ip}"]
+  description = "The public IP addresses of the NAT Gateways."
+}
+
 output "private_route_table_ids" {
   value       = ["${aws_route_table.private.*.id}"]
   description = "The IDs of the private routing tables."
