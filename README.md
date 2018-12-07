@@ -71,6 +71,7 @@ module "vpc" {
 - [Minimal](https://github.com/tmknom/terraform-aws-vpc/tree/master/examples/minimal)
 - [Complete](https://github.com/tmknom/terraform-aws-vpc/tree/master/examples/complete)
 - [Single NAT Gateway](https://github.com/tmknom/terraform-aws-vpc/tree/master/examples/single_nat_gateway)
+- [Disabled NAT Gateway](https://github.com/tmknom/terraform-aws-vpc/tree/master/examples/disabled_nat_gateway)
 
 ## Inputs
 
