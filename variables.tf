@@ -67,3 +67,9 @@ variable "enabled_nat_gateway" {
   type        = "string"
   description = "Set to false to prevent the module from creating NAT Gateway resources."
 }
+
+variable "enabled_single_nat_gateway" {
+  default     = false
+  type        = "string"
+  description = "Set to true to create single NAT Gateway resource."
+}

@@ -137,10 +137,10 @@ resource "aws_route_table" "private" {
 
 # https://www.terraform.io/docs/providers/aws/r/route.html
 resource "aws_route" "private" {
-  count = "${local.nat_gateway_count}"
+  count = "${var.enabled_nat_gateway ? length(var.private_subnet_cidr_blocks) : 0}"
 
   route_table_id         = "${element(aws_route_table.private.*.id, count.index)}"
-  nat_gateway_id         = "${element(aws_nat_gateway.default.*.id, count.index)}"
+  nat_gateway_id         = "${var.enabled_single_nat_gateway ? element(aws_nat_gateway.default.*.id, 0) : element(aws_nat_gateway.default.*.id, count.index)}"
   destination_cidr_block = "0.0.0.0/0"
 }
 
@@ -183,5 +183,5 @@ resource "aws_network_acl_rule" "private_egress" {
 }
 
 locals {
-  nat_gateway_count = "${var.enabled_nat_gateway ? length(var.private_subnet_cidr_blocks) : 0}"
+  nat_gateway_count = "${var.enabled_nat_gateway ? (var.enabled_single_nat_gateway ? 1 : length(var.private_subnet_cidr_blocks)) : 0}"
 }
