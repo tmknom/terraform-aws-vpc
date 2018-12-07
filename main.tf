@@ -9,15 +9,13 @@ resource "aws_vpc" "default" {
   instance_tenancy     = "${var.instance_tenancy}"
   enable_dns_support   = "${var.enable_dns_support}"
   enable_dns_hostnames = "${var.enable_dns_hostnames}"
-
-  tags = "${merge(map("Name", var.name), var.tags)}"
+  tags                 = "${merge(map("Name", var.name), var.tags)}"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/internet_gateway.html
 resource "aws_internet_gateway" "default" {
   vpc_id = "${aws_vpc.default.id}"
-
-  tags = "${merge(map("Name", var.name), var.tags)}"
+  tags   = "${merge(map("Name", var.name), var.tags)}"
 }
 
 #
@@ -32,15 +30,13 @@ resource "aws_subnet" "public" {
   cidr_block              = "${element(var.public_subnet_cidr_blocks, count.index)}"
   availability_zone       = "${element(var.public_availability_zones, count.index)}"
   map_public_ip_on_launch = "${var.map_public_ip_on_launch}"
-
-  tags = "${merge(map("Name", format("%s-public-%d", var.name, count.index)), var.tags)}"
+  tags                    = "${merge(map("Name", format("%s-public-%d", var.name, count.index)), var.tags)}"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/route_table.html
 resource "aws_route_table" "public" {
   vpc_id = "${aws_vpc.default.id}"
-
-  tags = "${merge(map("Name", format("%s-public", var.name)), var.tags)}"
+  tags   = "${merge(map("Name", format("%s-public", var.name)), var.tags)}"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/route.html
@@ -62,8 +58,7 @@ resource "aws_route_table_association" "public" {
 resource "aws_network_acl" "public" {
   vpc_id     = "${aws_vpc.default.id}"
   subnet_ids = ["${aws_subnet.public.*.id}"]
-
-  tags = "${merge(map("Name", format("%s-public", var.name)), var.tags)}"
+  tags       = "${merge(map("Name", format("%s-public", var.name)), var.tags)}"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
@@ -101,8 +96,7 @@ resource "aws_subnet" "private" {
   cidr_block              = "${element(var.private_subnet_cidr_blocks, count.index)}"
   availability_zone       = "${element(var.private_availability_zones, count.index)}"
   map_public_ip_on_launch = false
-
-  tags = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
+  tags                    = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/route_table.html
@@ -110,8 +104,7 @@ resource "aws_route_table" "private" {
   count = "${length(var.public_subnet_cidr_blocks)}"
 
   vpc_id = "${aws_vpc.default.id}"
-
-  tags = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
+  tags   = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/route_table_association.html
@@ -126,8 +119,7 @@ resource "aws_route_table_association" "private" {
 resource "aws_network_acl" "private" {
   vpc_id     = "${aws_vpc.default.id}"
   subnet_ids = ["${aws_subnet.private.*.id}"]
-
-  tags = "${merge(map("Name", format("%s-private", var.name)), var.tags)}"
+  tags       = "${merge(map("Name", format("%s-private", var.name)), var.tags)}"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
