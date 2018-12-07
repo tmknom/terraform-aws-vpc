@@ -107,9 +107,11 @@ resource "aws_subnet" "private" {
 
 # https://www.terraform.io/docs/providers/aws/r/route_table.html
 resource "aws_route_table" "private" {
+  count = "${length(var.public_subnet_cidr_blocks)}"
+
   vpc_id = "${aws_vpc.default.id}"
 
-  tags = "${merge(map("Name", format("%s-private", var.name)), var.tags)}"
+  tags = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/route_table_association.html
@@ -117,7 +119,7 @@ resource "aws_route_table_association" "private" {
   count = "${length(var.private_subnet_cidr_blocks)}"
 
   subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
-  route_table_id = "${aws_route_table.private.id}"
+  route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/network_acl.html

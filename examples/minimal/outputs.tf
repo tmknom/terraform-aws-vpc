@@ -94,8 +94,8 @@ output "private_subnet_availability_zones" {
   value = "${module.vpc.private_subnet_availability_zones}"
 }
 
-output "private_route_table_id" {
-  value = "${module.vpc.private_route_table_id}"
+output "private_route_table_ids" {
+  value = "${module.vpc.private_route_table_ids}"
 }
 
 output "private_route_table_association_ids" {

@@ -118,9 +118,9 @@ output "private_subnet_availability_zones" {
   description = "The Availability Zones for the private subnets."
 }
 
-output "private_route_table_id" {
-  value       = "${aws_route_table.private.id}"
-  description = "The ID of the private routing table."
+output "private_route_table_ids" {
+  value       = ["${aws_route_table.private.*.id}"]
+  description = "The IDs of the private routing tables."
 }
 
 output "private_route_table_association_ids" {
