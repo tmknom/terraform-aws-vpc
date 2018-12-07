@@ -1,7 +1,7 @@
 module "vpc" {
   source     = "../../"
   cidr_block = "10.255.0.0/16"
-  name       = "minimal"
+  name       = "example"
 
   public_subnet_cidr_blocks  = ["10.255.0.0/24", "10.255.1.0/24"]
   public_availability_zones  = ["ap-northeast-1a", "ap-northeast-1c"]
