@@ -168,12 +168,15 @@ install                                  Install requirements
 lint                                     Lint code
 release                                  Release GitHub and Terraform Module Registry
 terraform-apply-complete                 Run terraform apply examples/complete
+terraform-apply-disabled-nat-gateway     Run terraform apply examples/disabled_nat_gateway
 terraform-apply-minimal                  Run terraform apply examples/minimal
 terraform-apply-single-nat-gateway       Run terraform apply examples/single_nat_gateway
 terraform-destroy-complete               Run terraform destroy examples/complete
+terraform-destroy-disabled-nat-gateway   Run terraform destroy examples/disabled_nat_gateway
 terraform-destroy-minimal                Run terraform destroy examples/minimal
 terraform-destroy-single-nat-gateway     Run terraform destroy examples/single_nat_gateway
 terraform-plan-complete                  Run terraform plan examples/complete
+terraform-plan-disabled-nat-gateway      Run terraform plan examples/disabled_nat_gateway
 terraform-plan-minimal                   Run terraform plan examples/minimal
 terraform-plan-single-nat-gateway        Run terraform plan examples/single_nat_gateway
 upgrade                                  Upgrade makefile
