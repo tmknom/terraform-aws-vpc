@@ -94,6 +94,42 @@ output "private_subnet_availability_zones" {
   value = "${module.vpc.private_subnet_availability_zones}"
 }
 
+output "eip_nat_gateway_ids" {
+  value = "${module.vpc.eip_nat_gateway_ids}"
+}
+
+output "eip_nat_gateway_private_ips" {
+  value = "${module.vpc.eip_nat_gateway_private_ips}"
+}
+
+output "eip_nat_gateway_public_ips" {
+  value = "${module.vpc.eip_nat_gateway_public_ips}"
+}
+
+output "nat_gateway_ids" {
+  value = "${module.vpc.nat_gateway_ids}"
+}
+
+output "nat_gateway_allocation_ids" {
+  value = "${module.vpc.nat_gateway_allocation_ids}"
+}
+
+output "nat_gateway_subnet_ids" {
+  value = "${module.vpc.nat_gateway_subnet_ids}"
+}
+
+output "nat_gateway_network_interface_ids" {
+  value = "${module.vpc.nat_gateway_network_interface_ids}"
+}
+
+output "nat_gateway_private_ips" {
+  value = "${module.vpc.nat_gateway_private_ips}"
+}
+
+output "nat_gateway_public_ips" {
+  value = "${module.vpc.nat_gateway_public_ips}"
+}
+
 output "private_route_table_ids" {
   value = "${module.vpc.private_route_table_ids}"
 }
