@@ -135,6 +135,15 @@ resource "aws_route_table" "private" {
   tags   = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
 }
 
+# https://www.terraform.io/docs/providers/aws/r/route.html
+resource "aws_route" "private" {
+  count = "${length(var.private_subnet_cidr_blocks)}"
+
+  route_table_id         = "${element(aws_route_table.private.*.id, count.index)}"
+  nat_gateway_id         = "${element(aws_nat_gateway.default.*.id, count.index)}"
+  destination_cidr_block = "0.0.0.0/0"
+}
+
 # https://www.terraform.io/docs/providers/aws/r/route_table_association.html
 resource "aws_route_table_association" "private" {
   count = "${length(var.private_subnet_cidr_blocks)}"
