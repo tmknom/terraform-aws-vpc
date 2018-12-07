@@ -157,22 +157,25 @@ make install
 ### Makefile targets
 
 ```text
-check-format                   Check format code
-cibuild                        Execute CI build
-clean                          Clean .terraform
-docs                           Generate docs
-format                         Format code
-help                           Show help
-install                        Install requirements
-lint                           Lint code
-release                        Release GitHub and Terraform Module Registry
-terraform-apply-complete       Run terraform apply examples/complete
-terraform-apply-minimal        Run terraform apply examples/minimal
-terraform-destroy-complete     Run terraform destroy examples/complete
-terraform-destroy-minimal      Run terraform destroy examples/minimal
-terraform-plan-complete        Run terraform plan examples/complete
-terraform-plan-minimal         Run terraform plan examples/minimal
-upgrade                        Upgrade makefile
+check-format                             Check format code
+cibuild                                  Execute CI build
+clean                                    Clean .terraform
+docs                                     Generate docs
+format                                   Format code
+help                                     Show help
+install                                  Install requirements
+lint                                     Lint code
+release                                  Release GitHub and Terraform Module Registry
+terraform-apply-complete                 Run terraform apply examples/complete
+terraform-apply-minimal                  Run terraform apply examples/minimal
+terraform-apply-single-nat-gateway       Run terraform apply examples/single_nat_gateway
+terraform-destroy-complete               Run terraform destroy examples/complete
+terraform-destroy-minimal                Run terraform destroy examples/minimal
+terraform-destroy-single-nat-gateway     Run terraform destroy examples/single_nat_gateway
+terraform-plan-complete                  Run terraform plan examples/complete
+terraform-plan-minimal                   Run terraform plan examples/minimal
+terraform-plan-single-nat-gateway        Run terraform plan examples/single_nat_gateway
+upgrade                                  Upgrade makefile
 ```
 
 ### Releasing new versions
