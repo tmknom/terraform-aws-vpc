@@ -13,6 +13,7 @@ module "vpc" {
   enable_dns_hostnames    = false
   map_public_ip_on_launch = false
   enabled_nat_gateway     = false
+  enabled_single_nat_gateway = false
 
   tags = {
     Environment = "prod"
