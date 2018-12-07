@@ -99,12 +99,49 @@ resource "aws_subnet" "private" {
   tags                    = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
 }
 
+# Note: Do not use network_interface to associate the EIP to aws_lb or aws_nat_gateway resources.
+#       Instead use the allocation_id available in those resources to allow AWS to manage the association,
+#       otherwise you will see AuthFailure errors.
+#
+# https://www.terraform.io/docs/providers/aws/r/eip.html
+resource "aws_eip" "nat_gateway" {
+  count = "${length(var.private_subnet_cidr_blocks)}"
+
+  vpc  = true
+  tags = "${merge(map("Name", format("%s-nat-%d", var.name, count.index)), var.tags)}"
+
+  # Note: EIP may require IGW to exist prior to association. Use depends_on to set an explicit dependency on the IGW.
+  depends_on = ["aws_internet_gateway.default"]
+}
+
+# https://www.terraform.io/docs/providers/aws/r/nat_gateway.html
+resource "aws_nat_gateway" "default" {
+  count = "${length(var.private_subnet_cidr_blocks)}"
+
+  allocation_id = "${element(aws_eip.nat_gateway.*.id, count.index)}"
+  subnet_id     = "${element(aws_subnet.public.*.id, count.index)}"
+  tags          = "${merge(map("Name", format("%s-%d", var.name, count.index)), var.tags)}"
+
+  # Note: It's recommended to denote that the NAT Gateway depends on the Internet Gateway
+  #       for the VPC in which the NAT Gateway's subnet is located.
+  depends_on = ["aws_internet_gateway.default"]
+}
+
 # https://www.terraform.io/docs/providers/aws/r/route_table.html
 resource "aws_route_table" "private" {
   count = "${length(var.public_subnet_cidr_blocks)}"
 
   vpc_id = "${aws_vpc.default.id}"
   tags   = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
+}
+
+# https://www.terraform.io/docs/providers/aws/r/route.html
+resource "aws_route" "private" {
+  count = "${length(var.private_subnet_cidr_blocks)}"
+
+  route_table_id         = "${element(aws_route_table.private.*.id, count.index)}"
+  nat_gateway_id         = "${element(aws_nat_gateway.default.*.id, count.index)}"
+  destination_cidr_block = "0.0.0.0/0"
 }
 
 # https://www.terraform.io/docs/providers/aws/r/route_table_association.html
