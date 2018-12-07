@@ -53,7 +53,9 @@ module "vpc" {
   enable_dns_support      = false
   enable_dns_hostnames    = false
   map_public_ip_on_launch = false
-  enabled_nat_gateway     = false
+
+  enabled_nat_gateway        = false
+  enabled_single_nat_gateway = false
 
   tags = {
     Environment = "prod"
@@ -75,6 +77,7 @@ module "vpc" {
 | enable_dns_hostnames       | A boolean flag to enable/disable DNS hostnames in the VPC.                                               | string |  `true`   |    no    |
 | enable_dns_support         | A boolean flag to enable/disable DNS support in the VPC.                                                 | string |  `true`   |    no    |
 | enabled_nat_gateway        | Set to false to prevent the module from creating NAT Gateway resources.                                  | string |  `true`   |    no    |
+| enabled_single_nat_gateway | Set to true to create single NAT Gateway resource.                                                       | string |  `false`  |    no    |
 | instance_tenancy           | A tenancy option for instances launched into the VPC.                                                    | string | `default` |    no    |
 | map_public_ip_on_launch    | Specify true to indicate that instances launched into the subnet should be assigned a public IP address. | string |  `true`   |    no    |
 | private_availability_zones | The Availability Zones for the private subnets.                                                          |  list  |   `[]`    |    no    |
