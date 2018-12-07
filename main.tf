@@ -105,7 +105,7 @@ resource "aws_subnet" "private" {
 #
 # https://www.terraform.io/docs/providers/aws/r/eip.html
 resource "aws_eip" "nat_gateway" {
-  count = "${var.enabled_nat_gateway ? length(var.private_subnet_cidr_blocks) : 0}"
+  count = "${local.nat_gateway_count}"
 
   vpc  = true
   tags = "${merge(map("Name", format("%s-nat-%d", var.name, count.index)), var.tags)}"
@@ -116,7 +116,7 @@ resource "aws_eip" "nat_gateway" {
 
 # https://www.terraform.io/docs/providers/aws/r/nat_gateway.html
 resource "aws_nat_gateway" "default" {
-  count = "${var.enabled_nat_gateway ? length(var.private_subnet_cidr_blocks) : 0}"
+  count = "${local.nat_gateway_count}"
 
   allocation_id = "${element(aws_eip.nat_gateway.*.id, count.index)}"
   subnet_id     = "${element(aws_subnet.public.*.id, count.index)}"
@@ -137,7 +137,7 @@ resource "aws_route_table" "private" {
 
 # https://www.terraform.io/docs/providers/aws/r/route.html
 resource "aws_route" "private" {
-  count = "${var.enabled_nat_gateway ? length(var.private_subnet_cidr_blocks) : 0}"
+  count = "${local.nat_gateway_count}"
 
   route_table_id         = "${element(aws_route_table.private.*.id, count.index)}"
   nat_gateway_id         = "${element(aws_nat_gateway.default.*.id, count.index)}"
@@ -180,4 +180,8 @@ resource "aws_network_acl_rule" "private_egress" {
   rule_action    = "allow"
   protocol       = "-1"
   cidr_block     = "0.0.0.0/0"
+}
+
+locals {
+  nat_gateway_count = "${var.enabled_nat_gateway ? length(var.private_subnet_cidr_blocks) : 0}"
 }
