@@ -1,3 +1,7 @@
+# Terraform module which creates VPC resources on AWS.
+#
+# https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
+
 # https://www.terraform.io/docs/providers/aws/r/vpc.html
 resource "aws_vpc" "default" {
   cidr_block = "${var.cidr_block}"
