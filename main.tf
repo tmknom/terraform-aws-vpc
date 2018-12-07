@@ -99,6 +99,21 @@ resource "aws_subnet" "private" {
   tags                    = "${merge(map("Name", format("%s-private-%d", var.name, count.index)), var.tags)}"
 }
 
+# Note: Do not use network_interface to associate the EIP to aws_lb or aws_nat_gateway resources.
+#       Instead use the allocation_id available in those resources to allow AWS to manage the association,
+#       otherwise you will see AuthFailure errors.
+#
+# https://www.terraform.io/docs/providers/aws/r/eip.html
+resource "aws_eip" "nat_gateway" {
+  count = "${length(var.private_subnet_cidr_blocks)}"
+
+  vpc  = true
+  tags = "${merge(map("Name", format("%s-nat-%d", var.name, count.index)), var.tags)}"
+
+  # Note: EIP may require IGW to exist prior to association. Use depends_on to set an explicit dependency on the IGW.
+  depends_on = ["aws_internet_gateway.default"]
+}
+
 # https://www.terraform.io/docs/providers/aws/r/route_table.html
 resource "aws_route_table" "private" {
   count = "${length(var.public_subnet_cidr_blocks)}"

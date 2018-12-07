@@ -118,6 +118,21 @@ output "private_subnet_availability_zones" {
   description = "The Availability Zones for the private subnets."
 }
 
+output "eip_nat_gateway_ids" {
+  value       = ["${aws_eip.nat_gateway.*.id}"]
+  description = "Contains the EIP allocation IDs."
+}
+
+output "eip_nat_gateway_private_ips" {
+  value       = ["${aws_eip.nat_gateway.*.private_ip}"]
+  description = "Contains the private IP addresses (if in VPC)."
+}
+
+output "eip_nat_gateway_public_ips" {
+  value       = ["${aws_eip.nat_gateway.*.public_ip}"]
+  description = "Contains the public IP addresses."
+}
+
 output "private_route_table_ids" {
   value       = ["${aws_route_table.private.*.id}"]
   description = "The IDs of the private routing tables."
