@@ -7,6 +7,7 @@ TERRAFORM_VERSION := 0.11.10
 
 MINIMAL_DIR := ./examples/minimal
 COMPLETE_DIR := ./examples/complete
+SINGLE_NAT_GATEWAY_DIR := ./examples/single_nat_gateway
 
 terraform-plan-minimal: ## Run terraform plan examples/minimal
 	$(call terraform,${MINIMAL_DIR},init)
@@ -27,3 +28,13 @@ terraform-apply-complete: ## Run terraform apply examples/complete
 
 terraform-destroy-complete: ## Run terraform destroy examples/complete
 	$(call terraform,${COMPLETE_DIR},destroy)
+
+terraform-plan-single-nat-gateway: ## Run terraform plan examples/single_nat_gateway
+	$(call terraform,${SINGLE_NAT_GATEWAY_DIR},init)
+	$(call terraform,${SINGLE_NAT_GATEWAY_DIR},plan) | tee -a /dev/stderr | docker run --rm -i tmknom/terraform-landscape
+
+terraform-apply-single-nat-gateway: ## Run terraform apply examples/single_nat_gateway
+	$(call terraform,${SINGLE_NAT_GATEWAY_DIR},apply)
+
+terraform-destroy-single-nat-gateway: ## Run terraform destroy examples/single_nat_gateway
+	$(call terraform,${SINGLE_NAT_GATEWAY_DIR},destroy)
