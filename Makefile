@@ -12,7 +12,7 @@ DISABLED_NAT_GATEWAY_DIR := ./examples/disabled_nat_gateway
 
 terraform-plan-minimal: ## Run terraform plan examples/minimal
 	$(call terraform,${MINIMAL_DIR},init)
-	$(call terraform,${MINIMAL_DIR},plan) | tee -a /dev/stderr | docker run --rm -i tmknom/terraform-landscape
+	$(call terraform,${MINIMAL_DIR},plan)
 
 terraform-apply-minimal: ## Run terraform apply examples/minimal
 	$(call terraform,${MINIMAL_DIR},apply)
@@ -22,7 +22,7 @@ terraform-destroy-minimal: ## Run terraform destroy examples/minimal
 
 terraform-plan-complete: ## Run terraform plan examples/complete
 	$(call terraform,${COMPLETE_DIR},init)
-	$(call terraform,${COMPLETE_DIR},plan) | tee -a /dev/stderr | docker run --rm -i tmknom/terraform-landscape
+	$(call terraform,${COMPLETE_DIR},plan)
 
 terraform-apply-complete: ## Run terraform apply examples/complete
 	$(call terraform,${COMPLETE_DIR},apply)
@@ -32,7 +32,7 @@ terraform-destroy-complete: ## Run terraform destroy examples/complete
 
 terraform-plan-single-nat-gateway: ## Run terraform plan examples/single_nat_gateway
 	$(call terraform,${SINGLE_NAT_GATEWAY_DIR},init)
-	$(call terraform,${SINGLE_NAT_GATEWAY_DIR},plan) | tee -a /dev/stderr | docker run --rm -i tmknom/terraform-landscape
+	$(call terraform,${SINGLE_NAT_GATEWAY_DIR},plan)
 
 terraform-apply-single-nat-gateway: ## Run terraform apply examples/single_nat_gateway
 	$(call terraform,${SINGLE_NAT_GATEWAY_DIR},apply)
@@ -42,7 +42,7 @@ terraform-destroy-single-nat-gateway: ## Run terraform destroy examples/single_n
 
 terraform-plan-disabled-nat-gateway: ## Run terraform plan examples/disabled_nat_gateway
 	$(call terraform,${DISABLED_NAT_GATEWAY_DIR},init)
-	$(call terraform,${DISABLED_NAT_GATEWAY_DIR},plan) | tee -a /dev/stderr | docker run --rm -i tmknom/terraform-landscape
+	$(call terraform,${DISABLED_NAT_GATEWAY_DIR},plan)
 
 terraform-apply-disabled-nat-gateway: ## Run terraform apply examples/disabled_nat_gateway
 	$(call terraform,${DISABLED_NAT_GATEWAY_DIR},apply)
