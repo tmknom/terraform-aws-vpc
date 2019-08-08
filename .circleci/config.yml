@@ -3,6 +3,8 @@ version: 2
 jobs:
   build:
     machine: true
+    environment:
+      AWS_DEFAULT_REGION: ap-northeast-1
     steps:
       - checkout
       - run:
