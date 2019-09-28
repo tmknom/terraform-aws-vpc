@@ -9,23 +9,13 @@ resource "aws_vpc" "default" {
   instance_tenancy     = var.instance_tenancy
   enable_dns_support   = var.enable_dns_support
   enable_dns_hostnames = var.enable_dns_hostnames
-  tags = merge(
-    {
-      "Name" = var.name
-    },
-    var.tags,
-  )
+  tags                 = merge({ "Name" = var.name }, var.tags)
 }
 
 # https://www.terraform.io/docs/providers/aws/r/internet_gateway.html
 resource "aws_internet_gateway" "default" {
   vpc_id = aws_vpc.default.id
-  tags = merge(
-    {
-      "Name" = var.name
-    },
-    var.tags,
-  )
+  tags   = merge({ "Name" = var.name }, var.tags)
 }
 
 #
@@ -40,23 +30,13 @@ resource "aws_subnet" "public" {
   cidr_block              = element(var.public_subnet_cidr_blocks, count.index)
   availability_zone       = element(var.public_availability_zones, count.index)
   map_public_ip_on_launch = var.map_public_ip_on_launch
-  tags = merge(
-    {
-      "Name" = format("%s-public-%d", var.name, count.index)
-    },
-    var.tags,
-  )
+  tags                    = merge({ "Name" = format("%s-public-%d", var.name, count.index) }, var.tags)
 }
 
 # https://www.terraform.io/docs/providers/aws/r/route_table.html
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.default.id
-  tags = merge(
-    {
-      "Name" = format("%s-public", var.name)
-    },
-    var.tags,
-  )
+  tags   = merge({ "Name" = format("%s-public", var.name) }, var.tags)
 }
 
 # https://www.terraform.io/docs/providers/aws/r/route.html
@@ -78,12 +58,7 @@ resource "aws_route_table_association" "public" {
 resource "aws_network_acl" "public" {
   vpc_id     = aws_vpc.default.id
   subnet_ids = aws_subnet.public.*.id
-  tags = merge(
-    {
-      "Name" = format("%s-public", var.name)
-    },
-    var.tags,
-  )
+  tags       = merge({ "Name" = format("%s-public", var.name) }, var.tags)
 }
 
 # https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
@@ -121,12 +96,7 @@ resource "aws_subnet" "private" {
   cidr_block              = element(var.private_subnet_cidr_blocks, count.index)
   availability_zone       = element(var.private_availability_zones, count.index)
   map_public_ip_on_launch = false
-  tags = merge(
-    {
-      "Name" = format("%s-private-%d", var.name, count.index)
-    },
-    var.tags,
-  )
+  tags                    = merge({ "Name" = format("%s-private-%d", var.name, count.index) }, var.tags)
 }
 
 # Note: Do not use network_interface to associate the EIP to aws_lb or aws_nat_gateway resources.
@@ -137,13 +107,8 @@ resource "aws_subnet" "private" {
 resource "aws_eip" "nat_gateway" {
   count = local.nat_gateway_count
 
-  vpc = true
-  tags = merge(
-    {
-      "Name" = format("%s-nat-%d", var.name, count.index)
-    },
-    var.tags,
-  )
+  vpc  = true
+  tags = merge({ "Name" = format("%s-nat-%d", var.name, count.index) }, var.tags)
 
   # Note: EIP may require IGW to exist prior to association. Use depends_on to set an explicit dependency on the IGW.
   depends_on = [aws_internet_gateway.default]
@@ -155,12 +120,7 @@ resource "aws_nat_gateway" "default" {
 
   allocation_id = element(aws_eip.nat_gateway.*.id, count.index)
   subnet_id     = element(aws_subnet.public.*.id, count.index)
-  tags = merge(
-    {
-      "Name" = format("%s-%d", var.name, count.index)
-    },
-    var.tags,
-  )
+  tags          = merge({ "Name" = format("%s-%d", var.name, count.index) }, var.tags)
 
   # Note: It's recommended to denote that the NAT Gateway depends on the Internet Gateway
   #       for the VPC in which the NAT Gateway's subnet is located.
@@ -172,12 +132,7 @@ resource "aws_route_table" "private" {
   count = length(var.private_subnet_cidr_blocks)
 
   vpc_id = aws_vpc.default.id
-  tags = merge(
-    {
-      "Name" = format("%s-private-%d", var.name, count.index)
-    },
-    var.tags,
-  )
+  tags   = merge({ "Name" = format("%s-private-%d", var.name, count.index) }, var.tags)
 }
 
 # https://www.terraform.io/docs/providers/aws/r/route.html
@@ -201,12 +156,7 @@ resource "aws_route_table_association" "private" {
 resource "aws_network_acl" "private" {
   vpc_id     = aws_vpc.default.id
   subnet_ids = aws_subnet.private.*.id
-  tags = merge(
-    {
-      "Name" = format("%s-private", var.name)
-    },
-    var.tags,
-  )
+  tags       = merge({ "Name" = format("%s-private", var.name) }, var.tags)
 }
 
 # https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
@@ -235,4 +185,3 @@ resource "aws_network_acl_rule" "private_egress" {
 locals {
   nat_gateway_count = var.enabled_nat_gateway ? var.enabled_single_nat_gateway ? 1 : length(var.private_subnet_cidr_blocks) : 0
 }
-

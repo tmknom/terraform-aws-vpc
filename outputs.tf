@@ -187,4 +187,3 @@ output "private_egress_network_acl_rule_id" {
   value       = aws_network_acl_rule.private_egress.id
   description = "The ID of the private egress network ACL Rule."
 }
-

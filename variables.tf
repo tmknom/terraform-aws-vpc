@@ -73,4 +73,3 @@ variable "enabled_single_nat_gateway" {
   type        = string
   description = "Set to true to create single NAT Gateway resource."
 }
-
