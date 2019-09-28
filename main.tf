@@ -27,8 +27,8 @@ resource "aws_subnet" "public" {
   count = length(var.public_subnet_cidr_blocks)
 
   vpc_id                  = aws_vpc.default.id
-  cidr_block              = element(var.public_subnet_cidr_blocks, count.index)
-  availability_zone       = element(var.public_availability_zones, count.index)
+  cidr_block              = var.public_subnet_cidr_blocks[count.index]
+  availability_zone       = var.public_availability_zones[count.index]
   map_public_ip_on_launch = var.map_public_ip_on_launch
   tags                    = merge({ "Name" = format("%s-public-%d", var.name, count.index) }, var.tags)
 }
@@ -50,7 +50,7 @@ resource "aws_route" "public" {
 resource "aws_route_table_association" "public" {
   count = length(var.public_subnet_cidr_blocks)
 
-  subnet_id      = element(aws_subnet.public.*.id, count.index)
+  subnet_id      = aws_subnet.public.*.id[count.index]
   route_table_id = aws_route_table.public.id
 }
 
@@ -93,8 +93,8 @@ resource "aws_subnet" "private" {
   count = length(var.private_subnet_cidr_blocks)
 
   vpc_id                  = aws_vpc.default.id
-  cidr_block              = element(var.private_subnet_cidr_blocks, count.index)
-  availability_zone       = element(var.private_availability_zones, count.index)
+  cidr_block              = var.private_subnet_cidr_blocks[count.index]
+  availability_zone       = var.private_availability_zones[count.index]
   map_public_ip_on_launch = false
   tags                    = merge({ "Name" = format("%s-private-%d", var.name, count.index) }, var.tags)
 }
@@ -118,8 +118,8 @@ resource "aws_eip" "nat_gateway" {
 resource "aws_nat_gateway" "default" {
   count = local.nat_gateway_count
 
-  allocation_id = element(aws_eip.nat_gateway.*.id, count.index)
-  subnet_id     = element(aws_subnet.public.*.id, count.index)
+  allocation_id = aws_eip.nat_gateway.*.id[count.index]
+  subnet_id     = aws_subnet.public.*.id[count.index]
   tags          = merge({ "Name" = format("%s-%d", var.name, count.index) }, var.tags)
 
   # Note: It's recommended to denote that the NAT Gateway depends on the Internet Gateway
@@ -139,8 +139,8 @@ resource "aws_route_table" "private" {
 resource "aws_route" "private" {
   count = var.enabled_nat_gateway ? length(var.private_subnet_cidr_blocks) : 0
 
-  route_table_id         = element(aws_route_table.private.*.id, count.index)
-  nat_gateway_id         = var.enabled_single_nat_gateway ? element(aws_nat_gateway.default.*.id, 0) : element(aws_nat_gateway.default.*.id, count.index)
+  route_table_id         = aws_route_table.private.*.id[count.index]
+  nat_gateway_id         = var.enabled_single_nat_gateway ? aws_nat_gateway.default.*.id[0] : aws_nat_gateway.default.*.id[count.index]
   destination_cidr_block = "0.0.0.0/0"
 }
 
@@ -148,8 +148,8 @@ resource "aws_route" "private" {
 resource "aws_route_table_association" "private" {
   count = length(var.private_subnet_cidr_blocks)
 
-  subnet_id      = element(aws_subnet.private.*.id, count.index)
-  route_table_id = element(aws_route_table.private.*.id, count.index)
+  subnet_id      = aws_subnet.private.*.id[count.index]
+  route_table_id = aws_route_table.private.*.id[count.index]
 }
 
 # https://www.terraform.io/docs/providers/aws/r/network_acl.html
