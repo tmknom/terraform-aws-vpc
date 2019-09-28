@@ -1,5 +1,5 @@
 # https://github.com/tmknom/template-terraform-module
-TERRAFORM_VERSION := 0.12.6
+TERRAFORM_VERSION := 0.12.9
 -include .Makefile.terraform
 
 .Makefile.terraform:
