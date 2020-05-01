@@ -54,22 +54,22 @@ output "internet_gateway_id" {
 }
 
 output "public_subnet_ids" {
-  value       = [aws_subnet.public.*.id]
+  value       = aws_subnet.public.*.id
   description = "The IDs of the public subnets."
 }
 
 output "public_subnet_arns" {
-  value       = [aws_subnet.public.*.arn]
+  value       = aws_subnet.public.*.arn
   description = "The ARNs of the public subnets."
 }
 
 output "public_subnet_cidr_blocks" {
-  value       = [aws_subnet.public.*.cidr_block]
+  value       = aws_subnet.public.*.cidr_block
   description = "The CIDR blocks for the public subnets."
 }
 
 output "public_subnet_availability_zones" {
-  value       = [aws_subnet.public.*.availability_zone]
+  value       = aws_subnet.public.*.availability_zone
   description = "The Availability Zones for the public subnets."
 }
 
@@ -79,7 +79,7 @@ output "public_route_table_id" {
 }
 
 output "public_route_table_association_ids" {
-  value       = [aws_route_table_association.public.*.id]
+  value       = aws_route_table_association.public.*.id
   description = "The IDs of the public associations."
 }
 
@@ -99,77 +99,77 @@ output "public_egress_network_acl_rule_id" {
 }
 
 output "private_subnet_ids" {
-  value       = [aws_subnet.private.*.id]
+  value       = aws_subnet.private.*.id
   description = "The IDs of the private subnets."
 }
 
 output "private_subnet_arns" {
-  value       = [aws_subnet.private.*.arn]
+  value       = aws_subnet.private.*.arn
   description = "The ARNs of the private subnets."
 }
 
 output "private_subnet_cidr_blocks" {
-  value       = [aws_subnet.private.*.cidr_block]
+  value       = aws_subnet.private.*.cidr_block
   description = "The CIDR blocks for the private subnets."
 }
 
 output "private_subnet_availability_zones" {
-  value       = [aws_subnet.private.*.availability_zone]
+  value       = aws_subnet.private.*.availability_zone
   description = "The Availability Zones for the private subnets."
 }
 
 output "eip_nat_gateway_ids" {
-  value       = [aws_eip.nat_gateway.*.id]
+  value       = aws_eip.nat_gateway.*.id
   description = "Contains the EIP allocation IDs."
 }
 
 output "eip_nat_gateway_private_ips" {
-  value       = [aws_eip.nat_gateway.*.private_ip]
+  value       = aws_eip.nat_gateway.*.private_ip
   description = "Contains the private IP addresses (if in VPC)."
 }
 
 output "eip_nat_gateway_public_ips" {
-  value       = [aws_eip.nat_gateway.*.public_ip]
+  value       = aws_eip.nat_gateway.*.public_ip
   description = "Contains the public IP addresses."
 }
 
 output "nat_gateway_ids" {
-  value       = [aws_nat_gateway.default.*.id]
+  value       = aws_nat_gateway.default.*.id
   description = "The IDs of the NAT Gateways."
 }
 
 output "nat_gateway_allocation_ids" {
-  value       = [aws_nat_gateway.default.*.allocation_id]
+  value       = aws_nat_gateway.default.*.allocation_id
   description = "The Allocation IDs of the Elastic IP address for the gateways."
 }
 
 output "nat_gateway_subnet_ids" {
-  value       = [aws_nat_gateway.default.*.subnet_id]
+  value       = aws_nat_gateway.default.*.subnet_id
   description = "The Subnet IDs of the subnet in which the NAT gateways are placed."
 }
 
 output "nat_gateway_network_interface_ids" {
-  value       = [aws_nat_gateway.default.*.network_interface_id]
+  value       = aws_nat_gateway.default.*.network_interface_id
   description = "The ENI IDs of the network interface created by the NAT gateways."
 }
 
 output "nat_gateway_private_ips" {
-  value       = [aws_nat_gateway.default.*.private_ip]
+  value       = aws_nat_gateway.default.*.private_ip
   description = "The private IP addresses of the NAT Gateways."
 }
 
 output "nat_gateway_public_ips" {
-  value       = [aws_nat_gateway.default.*.public_ip]
+  value       = aws_nat_gateway.default.*.public_ip
   description = "The public IP addresses of the NAT Gateways."
 }
 
 output "private_route_table_ids" {
-  value       = [aws_route_table.private.*.id]
+  value       = aws_route_table.private.*.id
   description = "The IDs of the private routing tables."
 }
 
 output "private_route_table_association_ids" {
-  value       = [aws_route_table_association.private.*.id]
+  value       = aws_route_table_association.private.*.id
   description = "The IDs of the private associations."
 }
 
