@@ -76,23 +76,35 @@ module "vpc" {
 - [Single NAT Gateway](https://github.com/tmknom/terraform-aws-vpc/tree/master/examples/single_nat_gateway)
 - [Disabled NAT Gateway](https://github.com/tmknom/terraform-aws-vpc/tree/master/examples/disabled_nat_gateway)
 
+## Requirements
+
+| Name      | Version |
+| --------- | ------- |
+| terraform | >= 0.12 |
+
+## Providers
+
+| Name | Version |
+| ---- | ------- |
+| aws  | n/a     |
+
 ## Inputs
 
-| Name                       | Description                                                                                              |  Type  |  Default  | Required |
-| -------------------------- | -------------------------------------------------------------------------------------------------------- | :----: | :-------: | :------: |
-| cidr_block                 | The CIDR block for the VPC.                                                                              | string |     -     |   yes    |
-| name                       | The name for the VPC.                                                                                    | string |     -     |   yes    |
-| enable_dns_hostnames       | A boolean flag to enable/disable DNS hostnames in the VPC.                                               | string |  `true`   |    no    |
-| enable_dns_support         | A boolean flag to enable/disable DNS support in the VPC.                                                 | string |  `true`   |    no    |
-| enabled_nat_gateway        | Set to false to prevent the module from creating NAT Gateway resources.                                  | string |  `true`   |    no    |
-| enabled_single_nat_gateway | Set to true to create single NAT Gateway resource.                                                       | string |  `false`  |    no    |
-| instance_tenancy           | A tenancy option for instances launched into the VPC.                                                    | string | `default` |    no    |
-| map_public_ip_on_launch    | Specify true to indicate that instances launched into the subnet should be assigned a public IP address. | string |  `true`   |    no    |
-| private_availability_zones | The Availability Zones for the private subnets.                                                          |  list  |   `[]`    |    no    |
-| private_subnet_cidr_blocks | The CIDR blocks for the private subnets.                                                                 |  list  |   `[]`    |    no    |
-| public_availability_zones  | The Availability Zones for the public subnets.                                                           |  list  |   `[]`    |    no    |
-| public_subnet_cidr_blocks  | The CIDR blocks for the public subnets.                                                                  |  list  |   `[]`    |    no    |
-| tags                       | A mapping of tags to assign to all resources.                                                            |  map   |   `{}`    |    no    |
+| Name                       | Description                                                                                              | Type           | Default     | Required |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- | -------------- | ----------- | :------: |
+| cidr_block                 | The CIDR block for the VPC.                                                                              | `string`       | n/a         |   yes    |
+| name                       | The name for the VPC.                                                                                    | `string`       | n/a         |   yes    |
+| enable_dns_hostnames       | A boolean flag to enable/disable DNS hostnames in the VPC.                                               | `string`       | `true`      |    no    |
+| enable_dns_support         | A boolean flag to enable/disable DNS support in the VPC.                                                 | `string`       | `true`      |    no    |
+| enabled_nat_gateway        | Set to false to prevent the module from creating NAT Gateway resources.                                  | `string`       | `true`      |    no    |
+| enabled_single_nat_gateway | Set to true to create single NAT Gateway resource.                                                       | `string`       | `false`     |    no    |
+| instance_tenancy           | A tenancy option for instances launched into the VPC.                                                    | `string`       | `"default"` |    no    |
+| map_public_ip_on_launch    | Specify true to indicate that instances launched into the subnet should be assigned a public IP address. | `string`       | `true`      |    no    |
+| private_availability_zones | The Availability Zones for the private subnets.                                                          | `list(string)` | `[]`        |    no    |
+| private_subnet_cidr_blocks | The CIDR blocks for the private subnets.                                                                 | `list(string)` | `[]`        |    no    |
+| public_availability_zones  | The Availability Zones for the public subnets.                                                           | `list(string)` | `[]`        |    no    |
+| public_subnet_cidr_blocks  | The CIDR blocks for the public subnets.                                                                  | `list(string)` | `[]`        |    no    |
+| tags                       | A mapping of tags to assign to all resources.                                                            | `map(string)`  | `{}`        |    no    |
 
 ## Outputs
 
