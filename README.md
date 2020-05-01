@@ -1,6 +1,9 @@
 # terraform-aws-vpc
 
-[![CircleCI](https://circleci.com/gh/tmknom/terraform-aws-vpc.svg?style=svg)](https://circleci.com/gh/tmknom/terraform-aws-vpc)
+[![Terraform Actions Status](https://github.com/tmknom/terraform-aws-vpc/workflows/Terraform/badge.svg)](https://github.com/tmknom/terraform-aws-vpc/actions?query=workflow%3ATerraform)
+[![Markdown Actions Status](https://github.com/tmknom/terraform-aws-vpc/workflows/Markdown/badge.svg)](https://github.com/tmknom/terraform-aws-vpc/actions?query=workflow%3AMarkdown)
+[![YAML Actions Status](https://github.com/tmknom/terraform-aws-vpc/workflows/YAML/badge.svg)](https://github.com/tmknom/terraform-aws-vpc/actions?query=workflow%3AYAML)
+[![JSON Actions Status](https://github.com/tmknom/terraform-aws-vpc/workflows/JSON/badge.svg)](https://github.com/tmknom/terraform-aws-vpc/actions?query=workflow%3AJSON)
 [![GitHub tag](https://img.shields.io/github/tag/tmknom/terraform-aws-vpc.svg)](https://registry.terraform.io/modules/tmknom/vpc/aws)
 [![License](https://img.shields.io/github/license/tmknom/terraform-aws-vpc.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -73,23 +76,35 @@ module "vpc" {
 - [Single NAT Gateway](https://github.com/tmknom/terraform-aws-vpc/tree/master/examples/single_nat_gateway)
 - [Disabled NAT Gateway](https://github.com/tmknom/terraform-aws-vpc/tree/master/examples/disabled_nat_gateway)
 
+## Requirements
+
+| Name      | Version |
+| --------- | ------- |
+| terraform | >= 0.12 |
+
+## Providers
+
+| Name | Version |
+| ---- | ------- |
+| aws  | n/a     |
+
 ## Inputs
 
-| Name                       | Description                                                                                              |  Type  |  Default  | Required |
-| -------------------------- | -------------------------------------------------------------------------------------------------------- | :----: | :-------: | :------: |
-| cidr_block                 | The CIDR block for the VPC.                                                                              | string |     -     |   yes    |
-| name                       | The name for the VPC.                                                                                    | string |     -     |   yes    |
-| enable_dns_hostnames       | A boolean flag to enable/disable DNS hostnames in the VPC.                                               | string |  `true`   |    no    |
-| enable_dns_support         | A boolean flag to enable/disable DNS support in the VPC.                                                 | string |  `true`   |    no    |
-| enabled_nat_gateway        | Set to false to prevent the module from creating NAT Gateway resources.                                  | string |  `true`   |    no    |
-| enabled_single_nat_gateway | Set to true to create single NAT Gateway resource.                                                       | string |  `false`  |    no    |
-| instance_tenancy           | A tenancy option for instances launched into the VPC.                                                    | string | `default` |    no    |
-| map_public_ip_on_launch    | Specify true to indicate that instances launched into the subnet should be assigned a public IP address. | string |  `true`   |    no    |
-| private_availability_zones | The Availability Zones for the private subnets.                                                          |  list  |   `[]`    |    no    |
-| private_subnet_cidr_blocks | The CIDR blocks for the private subnets.                                                                 |  list  |   `[]`    |    no    |
-| public_availability_zones  | The Availability Zones for the public subnets.                                                           |  list  |   `[]`    |    no    |
-| public_subnet_cidr_blocks  | The CIDR blocks for the public subnets.                                                                  |  list  |   `[]`    |    no    |
-| tags                       | A mapping of tags to assign to all resources.                                                            |  map   |   `{}`    |    no    |
+| Name                       | Description                                                                                              | Type           | Default     | Required |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- | -------------- | ----------- | :------: |
+| cidr_block                 | The CIDR block for the VPC.                                                                              | `string`       | n/a         |   yes    |
+| name                       | The name for the VPC.                                                                                    | `string`       | n/a         |   yes    |
+| enable_dns_hostnames       | A boolean flag to enable/disable DNS hostnames in the VPC.                                               | `string`       | `true`      |    no    |
+| enable_dns_support         | A boolean flag to enable/disable DNS support in the VPC.                                                 | `string`       | `true`      |    no    |
+| enabled_nat_gateway        | Set to false to prevent the module from creating NAT Gateway resources.                                  | `string`       | `true`      |    no    |
+| enabled_single_nat_gateway | Set to true to create single NAT Gateway resource.                                                       | `string`       | `false`     |    no    |
+| instance_tenancy           | A tenancy option for instances launched into the VPC.                                                    | `string`       | `"default"` |    no    |
+| map_public_ip_on_launch    | Specify true to indicate that instances launched into the subnet should be assigned a public IP address. | `string`       | `true`      |    no    |
+| private_availability_zones | The Availability Zones for the private subnets.                                                          | `list(string)` | `[]`        |    no    |
+| private_subnet_cidr_blocks | The CIDR blocks for the private subnets.                                                                 | `list(string)` | `[]`        |    no    |
+| public_availability_zones  | The Availability Zones for the public subnets.                                                           | `list(string)` | `[]`        |    no    |
+| public_subnet_cidr_blocks  | The CIDR blocks for the public subnets.                                                                  | `list(string)` | `[]`        |    no    |
+| tags                       | A mapping of tags to assign to all resources.                                                            | `map(string)`  | `{}`        |    no    |
 
 ## Outputs
 
@@ -136,7 +151,7 @@ module "vpc" {
 
 ## Development
 
-### Requirements
+### Development Requirements
 
 - [Docker](https://www.docker.com/)
 
@@ -159,28 +174,28 @@ make install
 ### Makefile targets
 
 ```text
-check-format                             Check format code
-cibuild                                  Execute CI build
-clean                                    Clean .terraform
-docs                                     Generate docs
-format                                   Format code
-help                                     Show help
-install                                  Install requirements
-lint                                     Lint code
-release                                  Release GitHub and Terraform Module Registry
-terraform-apply-complete                 Run terraform apply examples/complete
-terraform-apply-disabled-nat-gateway     Run terraform apply examples/disabled_nat_gateway
-terraform-apply-minimal                  Run terraform apply examples/minimal
-terraform-apply-single-nat-gateway       Run terraform apply examples/single_nat_gateway
-terraform-destroy-complete               Run terraform destroy examples/complete
-terraform-destroy-disabled-nat-gateway   Run terraform destroy examples/disabled_nat_gateway
-terraform-destroy-minimal                Run terraform destroy examples/minimal
-terraform-destroy-single-nat-gateway     Run terraform destroy examples/single_nat_gateway
-terraform-plan-complete                  Run terraform plan examples/complete
-terraform-plan-disabled-nat-gateway      Run terraform plan examples/disabled_nat_gateway
-terraform-plan-minimal                   Run terraform plan examples/minimal
-terraform-plan-single-nat-gateway        Run terraform plan examples/single_nat_gateway
-upgrade                                  Upgrade makefile
+apply-complete                 Run terraform apply examples/complete
+apply-disabled-nat-gateway     Run terraform apply examples/disabled_nat_gateway
+apply-minimal                  Run terraform apply examples/minimal
+apply-single-nat-gateway       Run terraform apply examples/single_nat_gateway
+check-format                   Check format code
+clean                          Clean .terraform
+destroy-complete               Run terraform destroy examples/complete
+destroy-disabled-nat-gateway   Run terraform destroy examples/disabled_nat_gateway
+destroy-minimal                Run terraform destroy examples/minimal
+destroy-single-nat-gateway     Run terraform destroy examples/single_nat_gateway
+diff                           Word diff
+docs                           Generate docs
+format                         Format code
+help                           Show help
+install                        Install requirements
+lint                           Lint code
+plan-complete                  Run terraform plan examples/complete
+plan-disabled-nat-gateway      Run terraform plan examples/disabled_nat_gateway
+plan-minimal                   Run terraform plan examples/minimal
+plan-single-nat-gateway        Run terraform plan examples/single_nat_gateway
+release                        Release GitHub and Terraform Module Registry
+upgrade                        Upgrade makefile
 ```
 
 ### Releasing new versions
